@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Service # Kubernetes resource kind we are creating
+metadata:
+  name: application-processing
+  labels:
+    app: application-processing
+spec:
+  selector:
+    matchLabels:
+      app: application-processing
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: application-processing
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "application-processing"
+        dapr.io/app-port: "8080"
+        dapr.io/enable-api-logging: "true"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+        - name: application-processing
+          image: application-processing:1.0
+          # Image that will be used to containers in the cluster
+          imagePullPolicy: Never # Image will be pulled from the local docker repository
+          ports:
+            - containerPort: 8080
+# The port that the container is running on in the cluster

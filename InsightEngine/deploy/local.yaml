@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: insight-engine
+  labels:
+    app: insight-engine
+spec:
+  selector:
+    matchLabels:
+      app: insight-engine
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: insight-engine
+      annotations:
+        dapr.io/enabled: "true"
+        dapr.io/app-id: "insight-engine"
+        dapr.io/enable-api-logging: "true"
+        dapr.io/log-level: "debug"
+    spec:
+      containers:
+        - name: insight-engine
+          image: insight-engine:1.0
+          # Image that will be used to containers in the cluster
+          imagePullPolicy: Never # Image will be pulled from the local docker repository
+# The port that the container is running on in the cluster
