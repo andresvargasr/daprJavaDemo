@@ -24,7 +24,9 @@ public class ApplicationProcessingServiceController {
     public Mono<ResponseEntity> getCheckout(@RequestBody(required = false) CloudEvent<Application> cloudEvent) {
         return Mono.fromSupplier(() -> {
             try {
-                logger.info("Subscriber received: " + cloudEvent.getData().getApplicationId());
+                logger.info("************************  DEMO Wed 7 11:21 a.m. **********************************");
+                logger.info("New application received to validate : " + cloudEvent.getData().getApplicationId());
+                logger.info("*********************************************************************************");
                 return ResponseEntity.ok("SUCCESS");
             } catch (Exception e) {
                 throw new RuntimeException(e);

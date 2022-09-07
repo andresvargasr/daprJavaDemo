@@ -19,20 +19,20 @@ public class InsightEngineApplication {
         String PUBSUB_NAME = "pubsub";
         DaprClient client = new DaprClientBuilder().build();
 
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 5; i++) {
             int id = i;
-            Application order = new Application(id);
-
+            Application application = new Application(id);
             // Publish an event/message using Dapr PubSub
             client.publishEvent(
                     PUBSUB_NAME,
                     TOPIC_NAME,
-                    order).block();
-            logger.info("Published data: " + order.getApplicationId());
+                    application).block();
+            logger.info("************************  DEMO Wed 7 11:21 a.m. **********************************");
+            logger.info("Published data: " + application.getApplicationId());
+            logger.info("*********************************************************************************");
             TimeUnit.MILLISECONDS.sleep(5000);
         }
     }
-
 }
 @AllArgsConstructor
 @Getter

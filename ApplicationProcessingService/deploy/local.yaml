@@ -33,6 +33,7 @@ spec:
         dapr.io/app-id: "application-processing"
         dapr.io/app-port: "8080"
         dapr.io/enable-api-logging: "true"
+        dapr.io/config: "zipkin"
     spec:
       containers:
         - name: application-processing

@@ -18,6 +18,7 @@ spec:
         dapr.io/app-id: "insight-engine"
         dapr.io/enable-api-logging: "true"
         dapr.io/log-level: "debug"
+        dapr.io/config: "zipkin"
     spec:
       containers:
         - name: insight-engine
