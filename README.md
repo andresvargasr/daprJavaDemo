@@ -42,71 +42,6 @@ component.dapr.io/statestore created
 
 
 
-Create Java Springboot modules app
-
-Create daprDemo by IntelliJ spring boot app  with all developer tools checked (Spring version 2.7.3, lombok)
-
-IMPORTANT NOTE: execute the following command in every terminal you use to set the docker repository to be accesed by k8s:
-```
-eval $(minikube docker-env)
-```
-
-
-
-
-Adding InsightEngine app to k8s cluster
-
-
-Build the maven app
-```
-mvn clean install
-```
-testing it out
-```
-dapr run --app-id insight-engine --components-path ../components -- java -jar target/InsightEngine-0.0.1-SNAPSHOT.jar
-```
-build the docker image with the latest changes
-```
-docker build -t insight-engine:1.0 .
-```
-
-
-Adding ApplicationProcessingService app to k8s cluster
-
-Build the maven app
-```
-mvn clean install
-```
-testing it out
-```
-dapr run --app-port 8080 --app-id application-processing --components-path ../components -- java -jar target/ApplicationProcessingService-0.0.1-SNAPSHOT.jar
-```
-build the docker image with the latest changes
-```
-docker build -t application-processing:1.0 .
-```
-
-
-finally deploy on k8s cluster
-```
-kubectl apply -f InsightEngine/deploy/local.yaml
-```
-ó
-```
-kubectl create -f ApplicationProcessingService/deploy/local.yaml
-```
-
-See the logs and should find the messages  of publisher and subscriber events:
-kubectl logs --selector=app=insight-engine -c insight-engine --tail=-1
-
-
-
-```
-kubectl logs --selector=app=application-processing -c application-processing --tail=-1
-```
-
-
-
 Zipkin for distributed tracing
 
 
@@ -120,6 +55,72 @@ kubectl port-forward svc/zipkin 9411:9411
 ```
 
 On your browser, go to http://localhost:9411 and you should see the Zipkin UI.
+
+Create Java Springboot modules app
+
+Create daprDemo by IntelliJ spring boot app  with all developer tools checked (Spring version 2.7.3, lombok)
+
+
+Adding InsightEngine app to k8s cluster
+
+
+Build the maven app
+```
+mvn clean install
+```
+testing it out
+```
+dapr run --app-id insight-engine --components-path ../components -- java -jar target/InsightEngine-0.0.1-SNAPSHOT.jar
+```
+IMPORTANT NOTE: execute the following command in every terminal you use to set the docker repository to be accesed by k8s:
+```
+eval $(minikube -p minikube docker-env)
+```
+build the docker image with the latest changes
+```
+docker build -t insight-engine:1.0 .
+```
+finally deploy on k8s cluster
+```
+kubectl apply -f InsightEngine/deploy/local.yaml
+```
+See the logs and should find the messages  of publisher and subscriber events:
+```
+kubectl logs --selector=app=insight-engine -c insight-engine --tail=-1
+```
+
+
+
+Adding ApplicationProcessingService app to k8s cluster
+
+Build the maven app
+```
+mvn clean install
+```
+testing it out
+```
+dapr run --app-port 8080 --app-id application-processing --components-path ../components -- java -jar target/ApplicationProcessingService-0.0.1-SNAPSHOT.jar
+```
+IMPORTANT NOTE: execute the following command in every terminal you use to set the docker repository to be accesed by k8s:
+```
+eval $(minikube -p minikube docker-env)
+```
+build the docker image with the latest changes
+```
+docker build -t application-processing:1.0 .
+```
+finally deploy on k8s cluster
+```
+kubectl create -f ApplicationProcessingService/deploy/local.yaml
+```
+See the logs and should find the messages  of publisher and subscriber events:
+```
+kubectl logs --selector=app=application-processing -c application-processing --tail=-1
+```
+
+
+
+
 
 
 Clean your space

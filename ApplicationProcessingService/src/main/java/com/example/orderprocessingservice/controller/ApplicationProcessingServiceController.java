@@ -23,10 +23,12 @@ public class ApplicationProcessingServiceController {
     @PostMapping(path = "/orders", consumes = MediaType.ALL_VALUE)
     public Mono<ResponseEntity> getCheckout(@RequestBody(required = false) CloudEvent<Application> cloudEvent) {
         return Mono.fromSupplier(() -> {
+            logger.info("*********************************************************************************");
+            logger.info("************************  DEMO Thu 8 09:35 a.m. *********************************");
+            logger.info("*********************************************************************************");
             try {
-                logger.info("************************  DEMO Wed 7 11:21 a.m. **********************************");
-                logger.info("New application received to validate : " + cloudEvent.getData().getApplicationId());
-                logger.info("*********************************************************************************");
+                logger.info("_____>>      New application received to be validated : " +
+                        cloudEvent.getData().getApplicationId() + "       <<_____");
                 return ResponseEntity.ok("SUCCESS");
             } catch (Exception e) {
                 throw new RuntimeException(e);

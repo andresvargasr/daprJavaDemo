@@ -18,7 +18,9 @@ public class InsightEngineApplication {
         String TOPIC_NAME = "applications";
         String PUBSUB_NAME = "pubsub";
         DaprClient client = new DaprClientBuilder().build();
-
+        logger.info("*********************************************************************************");
+        logger.info("************************  DEMO Thu 8 09:35 a.m. *********************************");
+        logger.info("*********************************************************************************");
         for (int i = 0; i <= 5; i++) {
             int id = i;
             Application application = new Application(id);
@@ -27,9 +29,7 @@ public class InsightEngineApplication {
                     PUBSUB_NAME,
                     TOPIC_NAME,
                     application).block();
-            logger.info("************************  DEMO Wed 7 11:42 a.m. **********************************");
-            logger.info("Published data: " + application.getApplicationId());
-            logger.info("*********************************************************************************");
+            logger.info("_____>>      Published data: " + application.getApplicationId() + "      <<_____");
             TimeUnit.MILLISECONDS.sleep(5000);
         }
     }
