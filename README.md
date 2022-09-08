@@ -85,13 +85,15 @@ build the docker image with the latest changes
 ```
 docker build -t application-processing:1.0 .
 ```
+
+
 finally deploy on k8s cluster
 ```
-kubectl apply -f deploy/local.yaml
+kubectl apply -f InsightEngine/deploy/local.yaml
 ```
 ó
 ```
-kubectl create -f deploy/local.yaml
+kubectl create -f ApplicationProcessingService/deploy/local.yaml
 ```
 
 See the logs and should find the messages  of publisher and subscriber events:
@@ -118,3 +120,28 @@ kubectl port-forward svc/zipkin 9411:9411
 ```
 
 On your browser, go to http://localhost:9411 and you should see the Zipkin UI.
+
+
+Clean your space
+
+
+Delete  Insight Engine pod
+```
+kubectl delete -f InsightEngine/deploy/local.yaml
+kubectl delete -f ApplicationProcessingService/deploy/local.yaml
+```
+
+Delete docker images
+
+List the images
+docker ps
+```
+REPOSITORY                                TAG       IMAGE ID       CREATED         SIZE
+application-processing                    1.0       92eb17c176d0   21 hours ago    510MB
+insight-engine                            1.0       57722cab9965   21 hours ago    503MB
+```
+
+Remove images (application-processing and insight-engine)
+```
+docker rm <IMAGE ID>
+```

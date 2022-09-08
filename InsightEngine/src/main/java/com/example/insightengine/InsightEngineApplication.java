@@ -27,7 +27,7 @@ public class InsightEngineApplication {
                     PUBSUB_NAME,
                     TOPIC_NAME,
                     application).block();
-            logger.info("************************  DEMO Wed 7 11:21 a.m. **********************************");
+            logger.info("************************  DEMO Wed 7 11:42 a.m. **********************************");
             logger.info("Published data: " + application.getApplicationId());
             logger.info("*********************************************************************************");
             TimeUnit.MILLISECONDS.sleep(5000);
